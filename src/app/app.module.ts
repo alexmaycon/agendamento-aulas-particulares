@@ -12,6 +12,12 @@ import { DisciplinasComponent } from './disciplinas/disciplinas/disciplinas.comp
 import { AulaComponent } from './aulas/aula/aula.component';
 import { AlunoComponent } from './alunos/aluno/aluno.component';
 import { DisciplinaComponent } from './disciplinas/disciplina/disciplina.component';
+import { ResumoAulasComponent } from './resumo-aulas/resumo-aulas.component';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -24,13 +30,14 @@ import { DisciplinaComponent } from './disciplinas/disciplina/disciplina.compone
     DisciplinasComponent,
     AulaComponent,
     AlunoComponent,
-    DisciplinaComponent
+    DisciplinaComponent,
+    ResumoAulasComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

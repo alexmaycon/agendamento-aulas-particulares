@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-disciplina',
@@ -7,13 +8,21 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DisciplinaComponent implements OnInit {
 
-  // TODO: Passar via parametro de rota
-  isNovaDisciplina : boolean = true;
+  isNovo : boolean = true;
+  titulo : String = "";
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private router: Router) {
+   }
 
   ngOnInit(): void {
-
+    this.route.queryParams.subscribe((params) => {
+      this.isNovo = params['isNovo'] == 'true' ? true : false;
+      if (this.isNovo == true) {
+        this.titulo = "Nova Disciplina";
+      } else {
+        this.titulo = "Editar Disciplina";
+      }
+    });
   }
 
 }
