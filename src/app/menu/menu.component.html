@@ -2,17 +2,17 @@
   <nav>
     <div class="nav-wrapper">
       <div class="container">
-        <a class="brand-logo" href="#">
+        <a class="brand-logo" [routerLink]="['./']">
           Agendamento de Aulas Particulares
         </a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger">
           <i class="material-icons">menu</i>
         </a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="#" class="flow-text">Inicio</a></li>
-          <li><a href="#" class="flow-text">Aulas</a></li>
-          <li><a href="#" class="flow-text">Alunos</a></li>
-          <li><a href="#" class="flow-text">Disciplinas</a></li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]= "{exact: true}"> <a [routerLink]="['./']" class="flow-text">Início</a></li>
+          <li [routerLinkActive]="['active']"> <a [routerLink]="['./aulas/aulas']" class="flow-text">Aulas</a></li>
+          <li [routerLinkActive]="['active']"> <a [routerLink]="['./alunos/alunos']" class="flow-text">Alunos</a></li>
+          <li [routerLinkActive]="['active']"> <a [routerLink]="['./disciplinas/disciplinas']" class="flow-text">Disciplinas</a></li>
         </ul>
       </div>
     </div>
