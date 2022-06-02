@@ -1,9 +1,20 @@
-<div class="section">
-  <h1>Alunos</h1>
-  <div class="divider"></div>
-  <div class="row">
-    <div class="col s2 offset-s10 right"><span class="flow-text right"><a class="waves-effect waves-light btn" [routerLink]="['../aluno']" [queryParams]="{isNovo: true}"><i class="material-icons left">add</i>Novo</a>
-    </span></div>
+<div class="container">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Alunos</h1>
   </div>
+  <div class="row">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <a
+        type="button"
+        class="btn btn-primary"
+        [routerLink]="['../aluno']"
+        [queryParams]="{ isNovo: true }"
+        ><i class="bi bi-plus-lg"></i> Novo</a
+      >
+    </div>
+  </div>
+</div>
+<div class="container">
+  <router-outlet></router-outlet>
 </div>
 

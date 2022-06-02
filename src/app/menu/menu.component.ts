@@ -1,5 +1,3 @@
-import * as M from 'materialize-css';
-
 import {
   AfterViewInit,
   Component,
@@ -21,7 +19,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    M.Sidenav.init(this.sideNav?.nativeElement);
   }
 }
 // Alex Maycon da Silva

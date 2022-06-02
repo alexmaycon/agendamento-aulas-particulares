@@ -1,36 +1,24 @@
-<div class="navbar-fixed" style="z-index: 1001 !important">
-  <nav>
-    <div class="nav-wrapper">
-      <div class="container">
-        <a class="brand-logo" [routerLink]="['./']">
-          Agendamento de Aulas Particulares
-        </a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
-          <i class="material-icons">menu</i>
-        </a>
-        <ul class="right hide-on-med-and-down">
-          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]= "{exact: true}"> <a [routerLink]="['./']" class="flow-text">Início</a></li>
-          <li [routerLinkActive]="['active']"> <a [routerLink]="['./aulas/aulas']" class="flow-text">Aulas</a></li>
-          <li [routerLinkActive]="['active']"> <a [routerLink]="['./alunos/alunos']" class="flow-text">Alunos</a></li>
-          <li [routerLinkActive]="['active']"> <a [routerLink]="['./disciplinas/disciplinas']" class="flow-text">Disciplinas</a></li>
-        </ul>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['./']">Agendamento de Aulas Particulares</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" [routerLinkActiveOptions]= "{exact: true}" [routerLink]="['./']">Início</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['./aulas/aulas']">Aulas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['./alunos/alunos']">Alunos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['./disciplinas/disciplinas']">Disciplinas</a>
+        </li>
+      </ul>
     </div>
-  </nav>
-
-  <ul class="sidenav" id="mobile-demo" #mobile [ngStyle]="{'background-color':'var(--primaryColor)'}">
-    <div class="row">
-      <div class="col s8 offset-s2">
-        <div class="center">
-          <img width="180px"
-            src="/assets/resources/images/logo.png"
-          />
-        </div>
-      </div>
-    </div>
-    <li><a href="#" class="flow-text">Inicio</a></li>
-    <li><a href="#" class="flow-text">Aulas</a></li>
-    <li><a href="#" class="flow-text">Alunos</a></li>
-    <li><a href="#" class="flow-text">Disciplinas</a></li>
-  </ul>
-</div>
+  </div>
+</nav>
