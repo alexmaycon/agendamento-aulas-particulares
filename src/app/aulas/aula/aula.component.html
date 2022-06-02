@@ -1,4 +1,141 @@
-<div class="section">
-  <h1>{{titulo}}</h1>
-  <div class="divider"></div>
+<div class="container">
+  <div
+    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+  >
+    <h1 class="h2">{{ titulo }}</h1>
+  </div>
+
+  <form #form="ngForm" (submit)="onSubmit()" class="needs-validation" [ngClass]="!form.valid ? 'was-validated' : ''" novalidate>
+    <div class="mb-3">
+      <label for="input-codigo" class="form-label">Código *</label>
+      <input
+        type="text"
+        class="form-control validate"
+        id="input-codigo"
+        name="input-codigo"
+        [(ngModel)]="this.aula.codigo"
+        pattern="^[0-9]*"
+        #codigo="ngModel"
+        required
+      />
+      <div class="invalid-feedback" *ngIf="!codigo.valid || codigo.errors?.['pattern'] || codigo.untouched">
+        Informe um código válido.
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="codigo.errors?.['required'] && codigo.touched"
+      >
+        Código é obrigatório.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="input-valor" class="form-label">Valor *</label>
+      <input
+        id="input-valor"
+        name="input-valor"
+        type="text"
+        class="form-control validate"
+        [(ngModel)]="this.aula.valor"
+        pattern="^\d*,?\d*$"
+        #valor="ngModel"
+        required
+      />
+      <div class="invalid-feedback" *ngIf="!valor.valid || valor.errors?.['pattern'] || valor.untouched">
+        Informe um valor válido.
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="valor.errors?.['required'] && valor.touched"
+      >
+        Valor é obrigatório.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="input-disciplina" class="form-label">Disciplina *</label>
+      <input
+        id="input-disciplina"
+        name="input-disciplina"
+        class="form-control validate"
+        [(ngModel)]="this.aula.disciplina"
+        #disciplina="ngModel"
+        required
+      />
+      <div
+        class="invalid-feedback"
+        *ngIf="!disciplina.valid || disciplina.errors?.['pattern'] || disciplina.untouched"
+      >
+        Informe uma disciplina válida.
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="disciplina.errors?.['required'] && disciplina.touched"
+      >
+        Disciplina é obrigatória.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="input-aluno" class="form-label">Aluno *</label>
+      <input
+        id="input-aluno"
+        name="input-aluno"
+        class="form-control validate"
+        [(ngModel)]="this.aula.aluno"
+        #aluno="ngModel"
+        required
+      />
+      <div class="invalid-feedback" *ngIf="!aluno.valid || aluno.errors?.['pattern'] || aluno.untouched">
+        Informe um aluno válido.
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="aluno.errors?.['required'] && aluno.touched"
+      >
+        Aluno é obrigatório.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="input-valor" class="form-label">Data/Hora *</label>
+      <input
+        id="input-dataHora"
+        name="input-dataHora"
+        type="datetime"
+        class="form-control validate"
+        [(ngModel)]="this.aula.dataHora"
+        #dataHora="ngModel"
+        required
+      />
+      <div
+        class="invalid-feedback"
+        *ngIf="!dataHora.valid || dataHora.errors?.['pattern'] || dataHora.untouched"
+      >
+        Informe uma Data/hora válida.
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="dataHora.errors?.['required'] && dataHora.touched"
+      >
+        Data/hora é obrigatório.
+      </div>
+    </div>
+
+    <button class="btn btn-success" type="submit" [disabled]="!form.valid" style="margin-right: 5px;">
+      Salvar
+    </button>
+    <button
+      class="btn btn-danger"
+      type="button"
+      (click)="onDelete(aula.codigo)"
+      [disabled]="!form.valid"
+      *ngIf="!isNovo"  style="margin-right: 5px;"
+    >
+      Excluir
+    </button>
+    <button class="btn btn-warning" type="button" routerLink="../aulas">
+      Cancelar
+    </button>
+  </form>
 </div>
