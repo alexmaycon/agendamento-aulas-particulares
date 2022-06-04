@@ -64,18 +64,15 @@ export class AulaComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.isSubmitted = true;
 
     if (this.isNovo) {
-      this.aulaService.save(this.aula).then((a) => {
-
-      });
+      await this.aulaService.save(this.aula);
     } else {
-      this.aulaService.update(this.aula).then((a) => {
-
-      });
+      await this.aulaService.update(this.aula);
     }
+
     this.isShowMessage = true;
     this.isSuccess = true;
     this.form.reset();
@@ -83,6 +80,7 @@ export class AulaComponent implements OnInit {
     this.aula = new Aula("", 0, "", "", dataHora.getDay()+"/"+dataHora.getMonth()+"/"
     +dataHora.getFullYear()+" "+dataHora.getHours()+":"+dataHora.getMinutes());
     this.router.navigate(['./aulas/aulas']);
+
   }
 
   onDelete(codigo: string) {
