@@ -5,7 +5,13 @@
     <h1 class="h2">{{ titulo }}</h1>
   </div>
 
-  <form #form="ngForm" (submit)="onSubmit()" class="needs-validation" [ngClass]="!form.valid ? 'was-validated' : ''" novalidate>
+  <form
+    #form="ngForm"
+    (submit)="onSubmit()"
+    class="needs-validation"
+    [ngClass]="!form.valid ? 'was-validated' : ''"
+    novalidate
+  >
     <div class="mb-3">
       <label for="input-codigo" class="form-label">Código *</label>
       <input
@@ -13,12 +19,15 @@
         class="form-control validate"
         id="input-codigo"
         name="input-codigo"
-        [(ngModel)]="this.aula.codigo"
+        [(ngModel)]="this.aula.id"
         pattern="^[0-9]*"
         #codigo="ngModel"
         required
       />
-      <div class="invalid-feedback" *ngIf="!codigo.valid || codigo.errors?.['pattern'] || codigo.untouched">
+      <div
+        class="invalid-feedback"
+        *ngIf="!codigo.valid || codigo.errors?.['pattern'] || codigo.untouched"
+      >
         Informe um código válido.
       </div>
       <div
@@ -41,7 +50,10 @@
         #valor="ngModel"
         required
       />
-      <div class="invalid-feedback" *ngIf="!valor.valid || valor.errors?.['pattern'] || valor.untouched">
+      <div
+        class="invalid-feedback"
+        *ngIf="!valor.valid || valor.errors?.['pattern'] || valor.untouched"
+      >
         Informe um valor válido.
       </div>
       <div
@@ -54,14 +66,25 @@
 
     <div class="mb-3">
       <label for="input-disciplina" class="form-label">Disciplina *</label>
-      <input
+      <select
+        class="form-control validate"
+        title="Disciplinas"
         id="input-disciplina"
         name="input-disciplina"
-        class="form-control validate"
-        [(ngModel)]="this.aula.disciplina"
+        [(ngModel)]="this.aula.disciplinaId"
         #disciplina="ngModel"
         required
-      />
+      >
+        <option class="bs-title-option" value="">
+          Selecione uma disciplina
+        </option>
+        <option
+          *ngFor="let disciplina of disciplinas"
+          value="{{ disciplina?.id }}"
+        >
+          {{ disciplina?.descricao }}
+        </option>
+      </select>
       <div
         class="invalid-feedback"
         *ngIf="!disciplina.valid || disciplina.errors?.['pattern'] || disciplina.untouched"
@@ -78,15 +101,29 @@
 
     <div class="mb-3">
       <label for="input-aluno" class="form-label">Aluno *</label>
-      <input
+      <select
+      class="form-control validate"
+        title="Alunos"
         id="input-aluno"
         name="input-aluno"
-        class="form-control validate"
-        [(ngModel)]="this.aula.aluno"
+        [(ngModel)]="this.aula.alunoId"
         #aluno="ngModel"
         required
-      />
-      <div class="invalid-feedback" *ngIf="!aluno.valid || aluno.errors?.['pattern'] || aluno.untouched">
+      >
+        <option class="bs-title-option" value="">
+          Selecione um aluno
+        </option>
+        <option
+          *ngFor="let aluno of alunos"
+          value="{{ aluno?.id }}"
+        >
+          {{ aluno?.nomeCompleto }}
+        </option>
+      </select>
+      <div
+        class="invalid-feedback"
+        *ngIf="!aluno.valid || aluno.errors?.['pattern'] || aluno.untouched"
+      >
         Informe um aluno válido.
       </div>
       <div
@@ -122,15 +159,21 @@
       </div>
     </div>
 
-    <button class="btn btn-success" type="submit" [disabled]="!form.valid" style="margin-right: 5px;">
+    <button
+      class="btn btn-success"
+      type="submit"
+      [disabled]="!form.valid"
+      style="margin-right: 5px"
+    >
       Salvar
     </button>
     <button
       class="btn btn-danger"
       type="button"
-      (click)="onDelete(aula.codigo)"
+      (click)="onDelete(aula.id)"
       [disabled]="!form.valid"
-      *ngIf="!isNovo"  style="margin-right: 5px;"
+      *ngIf="!isNovo"
+      style="margin-right: 5px"
     >
       Excluir
     </button>

@@ -1,15 +1,15 @@
 export class Aula {
-  codigo! : string;
+  id! : string;
   valor!  : number;
-  disciplina! : string;
-  aluno! : string;
+  disciplinaId! : string;
+  alunoId! : string;
   dataHora! : string;
 
-  constructor (codigo:string, valor:number, disciplina:string, aluno:string, dataHora:string) {
-    this.codigo = codigo;
+  constructor (id:string, valor:number, disciplina:string, aluno:string, dataHora:string) {
+    this.id = id;
     this.valor = valor;
-    this.disciplina = disciplina;
-    this.aluno = aluno;
+    this.disciplinaId = disciplina;
+    this.alunoId = aluno;
     this.dataHora = dataHora;
   }
 }

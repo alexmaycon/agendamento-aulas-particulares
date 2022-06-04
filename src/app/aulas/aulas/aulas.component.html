@@ -32,17 +32,17 @@
 
     <tbody>
       <tr *ngFor="let aula of aulas">
-        <td>{{ aula.codigo }}</td>
+        <td>{{ aula.id }}</td>
         <td>{{ aula.valor | currency: "BRL" }}</td>
-        <td>{{ aula.disciplina }}</td>
-        <td>{{ aula.aluno }}</td>
+        <td>{{ aula.disciplinaId }}</td>
+        <td>{{ aula.alunoId }}</td>
         <td>{{ aula.dataHora }}</td>
         <td class="right">
           <a type="button" class="btn btn-dark" role="button" style="margin-right: 5px;" [routerLink]="['../aula']"
-          [queryParams]="{ isNovo: false, codigo: aula.codigo }">
+          [queryParams]="{ isNovo: false, codigo: aula.id }">
             <i class="bi bi-pencil-square"></i>
           </a>
-          <a type="button" class="btn btn-dark" role="button" (click)="onDelete(aula.codigo)">
+          <a type="button" class="btn btn-dark" role="button" (click)="onDelete(aula.id)">
             <i class="bi bi-trash"></i>
           </a>
         </td>
