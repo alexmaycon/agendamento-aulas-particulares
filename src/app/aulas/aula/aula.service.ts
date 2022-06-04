@@ -22,14 +22,14 @@ export class AulaService {
 
   update(aula: Aula) {
     this.aulas = WebStorageUtil.get(AulaService.AULAS_KEY);
-    this.delete(aula.codigo);
+    this.delete(aula.id);
     this.save(aula);
   }
 
   delete(codigo: string): boolean {
     this.aulas = WebStorageUtil.get(AulaService.AULAS_KEY);
     this.aulas = this.aulas.filter((u) => {
-      return u.codigo?.valueOf() != codigo?.valueOf();
+      return u.id?.valueOf() != codigo?.valueOf();
     });
 
     WebStorageUtil.set(AulaService.AULAS_KEY, this.aulas);
@@ -40,7 +40,7 @@ export class AulaService {
     this.aulas = WebStorageUtil.get(AulaService.AULAS_KEY);
     if (this.aulas) {
       for (let u of this.aulas) {
-        if (u.codigo?.valueOf() == value?.valueOf()) {
+        if (u.id?.valueOf() == value?.valueOf()) {
           return true;
         }
       }
@@ -51,7 +51,7 @@ export class AulaService {
   getAula(codigo: string): Aula | null {
     this.aulas = WebStorageUtil.get(AulaService.AULAS_KEY);
     for (let u of this.aulas) {
-      if (u.codigo?.valueOf() == codigo?.valueOf()) {
+      if (u.id?.valueOf() == codigo?.valueOf()) {
         return u;
       }
     }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AulaService } from 'src/app/aula.service';
 import { Aula } from 'src/app/model/aula';
-import { AulaService } from '../aula/aula.service';
 
 @Component({
   selector: 'app-aulas',
@@ -15,7 +15,9 @@ export class AulasComponent implements OnInit {
   constructor(private aulaService: AulaService) { }
 
   ngOnInit(): void {
-    this.aulas = this.aulaService.getAulas();
+    this.aulaService.getAll().then((aulas) => {
+      this.aulas = aulas;
+    });
   }
 
   onDelete(codigo: string) {
@@ -25,9 +27,13 @@ export class AulasComponent implements OnInit {
     if (!confirmation) {
       return;
     }
-    let response: boolean = this.aulaService.delete(codigo);
-
-    this.aulas = this.aulaService.getAulas();
+    this.aulaService.delete(codigo).then((a) => {
+      this.aulaService.getAll().then((aulas) => {
+        this.aulas = aulas;
+      });
+    }).catch((error) => {
+      alert("Erro ao deletar aula "+codigo);
+    });
   }
 
 }

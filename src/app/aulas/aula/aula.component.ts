@@ -1,8 +1,12 @@
+import { Disciplina } from './../../model/disciplina';
+import { AlunoService } from './../../aluno.service';
+import { DisciplinaService } from './../../disciplina.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AulaService } from 'src/app/aula.service';
 import { Aula } from 'src/app/model/aula';
-import { AulaService } from './aula.service';
+import { Aluno } from 'src/app/model/aluno';
 @Component({
   selector: 'app-aula',
   templateUrl: './aula.component.html',
@@ -13,6 +17,8 @@ export class AulaComponent implements OnInit {
   @ViewChild('form') form!: NgForm;
 
   aula!: Aula;
+  alunos? : Aluno[];
+  disciplinas? : Disciplina[];
 
   isNovo: boolean = true;
   titulo: String = "";
@@ -21,7 +27,11 @@ export class AulaComponent implements OnInit {
   isSuccess!: boolean;
   message!: string;
 
-  constructor(private route: ActivatedRoute, private router: Router, private aulaService: AulaService) {
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private aulaService: AulaService,
+              private disciplinaService : DisciplinaService,
+              private alunoService : AlunoService) {
   }
 
   ngOnInit(): void {
@@ -37,29 +47,40 @@ export class AulaComponent implements OnInit {
         this.titulo = "Nova Aula";
       } else {
         this.titulo = "Editar Aula";
-        var aulaGet = this.aulaService.getAula(codigo);
-        if (aulaGet)
-          this.aula = aulaGet;
+        this.aulaService.getById(codigo).then((a:Aula) => {
+          this.aula = a;
+        });
       }
+    });
+
+    this.alunoService.getAll().then((alunos) => {
+      this.alunos = alunos;
+      console.log(alunos);
+    });
+
+    this.disciplinaService.getAll().then((disciplinas) => {
+      this.disciplinas = disciplinas;
+      console.log(disciplinas);
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.isSubmitted = true;
-    if (!this.aulaService.isExist(this.aula.codigo)) {
-      this.aulaService.save(this.aula);
+
+    if (this.isNovo) {
+      await this.aulaService.save(this.aula);
     } else {
-      this.aulaService.update(this.aula);
+      await this.aulaService.update(this.aula);
     }
+
     this.isShowMessage = true;
     this.isSuccess = true;
-
     this.form.reset();
     var dataHora = new Date();
     this.aula = new Aula("", 0, "", "", dataHora.getDay()+"/"+dataHora.getMonth()+"/"
     +dataHora.getFullYear()+" "+dataHora.getHours()+":"+dataHora.getMinutes());
-
     this.router.navigate(['./aulas/aulas']);
+
   }
 
   onDelete(codigo: string) {
@@ -69,9 +90,15 @@ export class AulaComponent implements OnInit {
     if (!confirmation) {
       return;
     }
-    let response: boolean = this.aulaService.delete(codigo);
+    let response: boolean = false;
 
-    this.router.navigate(['./aulas/aulas']);
+    this.aulaService.delete(codigo).then((a) => {
+      response = true;
+      this.router.navigate(['./aulas/aulas']);
+    }).catch((error) => {
+      response = false;
+      alert("Erro ao deletar aula "+this.aula.id);
+    });
   }
 
 }

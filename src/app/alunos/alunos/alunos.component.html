@@ -16,5 +16,40 @@
 </div>
 <div class="container">
   <router-outlet></router-outlet>
+  <table class="table table-striped" *ngIf="alunos && alunos!.length > 0">
+    <thead>
+      <tr>
+        <th>Codigo</th>
+        <th>Nome Completo</th>
+        <th>E-mail</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let aluno of alunos">
+        <td>{{ aluno.id }}</td>
+        <td>{{ aluno.nomeCompleto }}</td>
+        <td>{{ aluno.email }}</td>
+        <td class="right">
+          <a type="button" class="btn btn-dark" role="button" style="margin-right: 5px;" [routerLink]="['../aluno']"
+          [queryParams]="{ isNovo: false, codigo: aluno.id }">
+            <i class="bi bi-pencil-square"></i>
+          </a>
+          <a type="button" class="btn btn-dark" role="button" (click)="onDelete(aluno.id)">
+            <i class="bi bi-trash"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!alunos || alunos!.length == 0">
+    <div class="row">
+      <div class="center-align">
+        <span class="col s12 flow-text">Nenhum registro encontrado!</span>
+      </div>
+    </div>
+  </div>
 </div>
 
