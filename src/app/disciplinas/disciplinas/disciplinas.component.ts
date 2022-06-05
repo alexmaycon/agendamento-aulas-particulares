@@ -14,24 +14,31 @@ export class DisciplinasComponent implements OnInit {
   constructor(private disciplinaService: DisciplinaService) { }
 
   ngOnInit(): void {
-    this.disciplinaService.getAll().then((disciplinas) => {
-      this.disciplinas = disciplinas;
+    this.disciplinaService.getAll().subscribe({
+      next: (disciplinas) => {
+        this.disciplinas = disciplinas;
+      }
     });
   }
 
   onDelete(codigo: string) {
     let confirmation = window.confirm(
-      'Você tem certeza que deseja remover a disciplina com código (' + codigo+")?"
+      'Você tem certeza que deseja remover a disciplina com código (' + codigo + ")?"
     );
     if (!confirmation) {
       return;
     }
-    this.disciplinaService.delete(codigo).then((a) => {
-      this.disciplinaService.getAll().then((disciplinas) => {
-        this.disciplinas = disciplinas;
-      });
-    }).catch((error) => {
-      alert("Erro ao deletar disciplina "+codigo);
+    this.disciplinaService.delete(codigo).subscribe({
+      complete: () => {
+        this.disciplinaService.getAll().subscribe({
+          next: (disciplinas) => {
+            this.disciplinas = disciplinas;
+          }
+        });
+      },
+      error: (error) => {
+        alert("Erro ao deletar disciplina " + codigo);
+      }
     });
   }
 

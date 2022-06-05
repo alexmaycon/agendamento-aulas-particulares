@@ -34,8 +34,8 @@
       <tr *ngFor="let aula of aulas">
         <td>{{ aula.id }}</td>
         <td>{{ aula.valor | currency: "BRL" }}</td>
-        <td>{{ aula.disciplinaId }}</td>
-        <td>{{ aula.alunoId }}</td>
+        <td>{{ aula.disciplinaId | disciplina | async }}</td>
+        <td>{{ aula.alunoId | aluno | async}}</td>
         <td>{{ aula.dataHora }}</td>
         <td class="right">
           <a type="button" class="btn btn-dark" role="button" style="margin-right: 5px;" [routerLink]="['../aula']"

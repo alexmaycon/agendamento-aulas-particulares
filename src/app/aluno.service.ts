@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { Aluno } from './model/aluno';
 
 
@@ -17,40 +17,40 @@ export class AlunoService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getAll() : Promise<Aluno[]> {
-    return firstValueFrom(this.httpClient.get<Aluno[]>(`${this.URL}/`));
+  getAll() : Observable<Aluno[]> {
+    return this.httpClient.get<Aluno[]>(`${this.URL}/`);
   }
 
-  getById(id: number): Promise<Aluno> {
-    return firstValueFrom(this.httpClient.get<Aluno>(`${this.URL}/${id}`));
+  getById(id: string): Observable<Aluno> {
+    return this.httpClient.get<Aluno>(`${this.URL}/${id}`);
   }
 
-  save(aluno: Aluno): Promise<Aluno> {
-    return firstValueFrom(this.httpClient
+  save(aluno: Aluno): Observable<Aluno> {
+    return this.httpClient
       .post<Aluno>(
         this.URL,
         JSON.stringify(aluno),
         this.httpOptions
-      ));
+      );
   }
 
-  patch(aluno: Aluno): Promise<Aluno> {
-    return firstValueFrom(this.httpClient
+  patch(aluno: Aluno): Observable<Aluno> {
+    return this.httpClient
       .patch<Aluno>(
         this.URL,
         JSON.stringify(aluno),
         this.httpOptions
-      ));
+      );
   }
 
-  update(aluno: Aluno): Promise<Aluno> {
-    return firstValueFrom(this.httpClient
-      .put<Aluno>(`${this.URL}/${aluno.id}`, JSON.stringify(aluno), this.httpOptions));
+  update(aluno: Aluno): Observable<Aluno> {
+    return this.httpClient
+      .put<Aluno>(`${this.URL}/${aluno.id}`, JSON.stringify(aluno), this.httpOptions);
   }
 
-  delete(id: String): Promise<Aluno> {
-    return firstValueFrom(this.httpClient
-      .delete<Aluno>(`${this.URL}/${id}`, this.httpOptions));
+  delete(id: String): Observable<Aluno> {
+    return this.httpClient
+      .delete<Aluno>(`${this.URL}/${id}`, this.httpOptions);
   }
 
 }
