@@ -15,24 +15,31 @@ export class AulasComponent implements OnInit {
   constructor(private aulaService: AulaService) { }
 
   ngOnInit(): void {
-    this.aulaService.getAll().then((aulas) => {
-      this.aulas = aulas;
+    this.aulaService.getAll().subscribe({
+      next: (aulas) => {
+        this.aulas = aulas;
+      }
     });
   }
 
   onDelete(codigo: string) {
     let confirmation = window.confirm(
-      'Você tem certeza que deseja remover a aula com código (' + codigo+")?"
+      'Você tem certeza que deseja remover a aula com código (' + codigo + ")?"
     );
     if (!confirmation) {
       return;
     }
-    this.aulaService.delete(codigo).then((a) => {
-      this.aulaService.getAll().then((aulas) => {
-        this.aulas = aulas;
-      });
-    }).catch((error) => {
-      alert("Erro ao deletar aula "+codigo);
+    this.aulaService.delete(codigo).subscribe({
+      complete: () => {
+        this.aulaService.getAll().subscribe({
+          next: (aulas) => {
+            this.aulas = aulas;
+          }
+        });
+      },
+      error: (error) => {
+        alert("Erro ao deletar aula "+codigo);
+      }
     });
   }
 

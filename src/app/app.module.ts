@@ -19,6 +19,8 @@ import localePt from '@angular/common/locales/pt';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { DisciplinaPipe } from './pipes/disciplina.pipe';
+import { AlunoPipe } from './pipes/aluno.pipe';
 
 registerLocaleData(localePt);
 
@@ -34,7 +36,9 @@ registerLocaleData(localePt);
     AulaComponent,
     AlunoComponent,
     DisciplinaComponent,
-    ResumoAulasComponent
+    ResumoAulasComponent,
+    DisciplinaPipe,
+    AlunoPipe
   ],
   imports: [
     BrowserModule,

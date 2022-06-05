@@ -14,9 +14,16 @@ export class AlunosComponent implements OnInit {
   constructor(private alunoService: AlunoService) { }
 
   ngOnInit(): void {
-    this.alunoService.getAll().then((alunos) => {
-      this.alunos = alunos;
-    });
+    this.alunoService.getAll().subscribe(
+      {
+        next: (alunos: Aluno[]) => {
+            this.alunos = alunos;
+        },
+        error: () => {
+          console.log('Erro ao obter alubos');
+        }
+      }
+    );
   }
 
   onDelete(codigo: string) {
@@ -26,13 +33,25 @@ export class AlunosComponent implements OnInit {
     if (!confirmation) {
       return;
     }
-    this.alunoService.delete(codigo).then((a) => {
-      this.alunoService.getAll().then((alunos) => {
-        this.alunos = alunos;
-      });
-    }).catch((error) => {
-      alert("Erro ao deletar aluno "+codigo);
-    });
+    this.alunoService.delete(codigo).subscribe(
+      {
+        complete: () => {
+            this.alunoService.getAll().subscribe(
+              {
+                next: (alunos: Aluno[]) => {
+                    this.alunos = alunos;
+                  },
+                error: () => {
+                  console.log('Erro ao obter alubos');
+                }
+              }
+            );
+          },
+        error: () => {
+          alert("Erro ao deletar aluno "+codigo);
+        }
+      }
+    );
   }
 
 }

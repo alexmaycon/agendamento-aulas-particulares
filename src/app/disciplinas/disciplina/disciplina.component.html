@@ -1,9 +1,87 @@
 <div class="container">
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">{{titulo}}</h1>
+  <div
+    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+  >
+    <h1 class="h2">{{ titulo }}</h1>
   </div>
-  <div class="divider"></div>
-</div>
-<div class="container">
-  <p>Em breve...</p>
+
+  <form
+    #form="ngForm"
+    (submit)="onSubmit()"
+    class="needs-validation"
+    [ngClass]="!form.valid ? 'was-validated' : ''"
+    novalidate
+  >
+    <div class="mb-3">
+      <label for="input-codigo" class="form-label">Código *</label>
+      <input
+        type="text"
+        class="form-control validate"
+        id="input-codigo"
+        name="input-codigo"
+        [(ngModel)]="this.disciplina.id"
+        #codigo="ngModel"
+        required
+      />
+      <div
+        class="invalid-feedback"
+        *ngIf="!codigo.valid || codigo == null || codigo.untouched"
+      >
+        Informe um código válido.
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="codigo.errors?.['required'] && codigo.touched"
+      >
+        Código é obrigatório.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="input-descricao" class="form-label">Descrição *</label>
+      <input
+        id="input-descricao"
+        name="input-descricao"
+        type="text"
+        class="form-control validate"
+        [(ngModel)]="this.disciplina.descricao"
+        #descricao="ngModel"
+        required
+      />
+      <div
+        class="invalid-feedback"
+        *ngIf="!descricao.valid || descricao == null || descricao.untouched"
+      >
+        Informe um nome válido.
+      </div>
+      <div
+        class="invalid-feedback"
+        *ngIf="descricao.errors?.['required'] && descricao.touched"
+      >
+        Nome completo é obrigatório.
+      </div>
+    </div>
+
+    <button
+      class="btn btn-success"
+      type="submit"
+      [disabled]="!form.valid"
+      style="margin-right: 5px"
+    >
+      Salvar
+    </button>
+    <button
+      class="btn btn-danger"
+      type="button"
+      (click)="onDelete(disciplina.id)"
+      [disabled]="!form.valid"
+      *ngIf="!isNovo"
+      style="margin-right: 5px"
+    >
+      Excluir
+    </button>
+    <button class="btn btn-warning" type="button" routerLink="../disciplinas">
+      Cancelar
+    </button>
+  </form>
 </div>

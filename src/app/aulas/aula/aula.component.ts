@@ -17,8 +17,8 @@ export class AulaComponent implements OnInit {
   @ViewChild('form') form!: NgForm;
 
   aula!: Aula;
-  alunos? : Aluno[];
-  disciplinas? : Disciplina[];
+  alunos?: Aluno[];
+  disciplinas?: Disciplina[];
 
   isNovo: boolean = true;
   titulo: String = "";
@@ -28,17 +28,17 @@ export class AulaComponent implements OnInit {
   message!: string;
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private aulaService: AulaService,
-              private disciplinaService : DisciplinaService,
-              private alunoService : AlunoService) {
+    private router: Router,
+    private aulaService: AulaService,
+    private disciplinaService: DisciplinaService,
+    private alunoService: AlunoService) {
   }
 
   ngOnInit(): void {
 
     var dataHora = new Date();
-    this.aula = new Aula("", 0, "", "", dataHora.getDay()+"/"+dataHora.getMonth()+"/"
-    +dataHora.getFullYear()+" "+dataHora.getHours()+":"+dataHora.getMinutes());
+    this.aula = new Aula("", 0, "", "", dataHora.getDay() + "/" + dataHora.getMonth() + "/"
+      + dataHora.getFullYear() + " " + dataHora.getHours() + ":" + dataHora.getMinutes());
 
     this.route.queryParams.subscribe((params) => {
       this.isNovo = params['isNovo'] == 'true' ? true : false;
@@ -47,20 +47,30 @@ export class AulaComponent implements OnInit {
         this.titulo = "Nova Aula";
       } else {
         this.titulo = "Editar Aula";
-        this.aulaService.getById(codigo).then((a:Aula) => {
-          this.aula = a;
+        this.aulaService.getById(codigo).subscribe({
+          next: (a: Aula) => {
+            this.aula = a;
+          }
         });
       }
     });
 
-    this.alunoService.getAll().then((alunos) => {
-      this.alunos = alunos;
-      console.log(alunos);
-    });
+    this.alunoService.getAll().subscribe(
+      {
+        next: (alunos: Aluno[]) => {
+            this.alunos = alunos;
+          },
+        error: () => {
+          console.log('Erro ao obter alunos');
+        }
+      }
+    );
 
-    this.disciplinaService.getAll().then((disciplinas) => {
-      this.disciplinas = disciplinas;
-      console.log(disciplinas);
+    this.disciplinaService.getAll().subscribe({
+      next: (disciplinas) => {
+        this.disciplinas = disciplinas;
+        console.log(disciplinas);
+      }
     });
   }
 
@@ -77,27 +87,30 @@ export class AulaComponent implements OnInit {
     this.isSuccess = true;
     this.form.reset();
     var dataHora = new Date();
-    this.aula = new Aula("", 0, "", "", dataHora.getDay()+"/"+dataHora.getMonth()+"/"
-    +dataHora.getFullYear()+" "+dataHora.getHours()+":"+dataHora.getMinutes());
+    this.aula = new Aula("", 0, "", "", dataHora.getDay() + "/" + dataHora.getMonth() + "/"
+      + dataHora.getFullYear() + " " + dataHora.getHours() + ":" + dataHora.getMinutes());
     this.router.navigate(['./aulas/aulas']);
 
   }
 
   onDelete(codigo: string) {
     let confirmation = window.confirm(
-      'Você tem certeza que deseja remover a aula com código (' + codigo+")?"
+      'Você tem certeza que deseja remover a aula com código (' + codigo + ")?"
     );
     if (!confirmation) {
       return;
     }
     let response: boolean = false;
 
-    this.aulaService.delete(codigo).then((a) => {
-      response = true;
-      this.router.navigate(['./aulas/aulas']);
-    }).catch((error) => {
-      response = false;
-      alert("Erro ao deletar aula "+this.aula.id);
+    this.aulaService.delete(codigo).subscribe({
+      complete: () => {
+        response = true;
+        this.router.navigate(['./aulas/aulas']);
+      },
+      error:(error) => {
+        response = false;
+        alert("Erro ao deletar aula " + this.aula.id);
+      }
     });
   }
 
