@@ -43,9 +43,9 @@ export class DisciplinaComponent implements OnInit {
 
   async onSubmit() {
     if (this.isNovo) {
-      await this.disciplinaService.save(this.disciplina);
+      await this.disciplinaService.save(this.disciplina).toPromise();
     } else {
-      await this.disciplinaService.update(this.disciplina);
+      await this.disciplinaService.update(this.disciplina).toPromise();
     }
 
     this.form.reset();
