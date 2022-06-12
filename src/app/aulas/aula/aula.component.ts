@@ -78,9 +78,9 @@ export class AulaComponent implements OnInit {
     this.isSubmitted = true;
 
     if (this.isNovo) {
-      await this.aulaService.save(this.aula);
+      await this.aulaService.save(this.aula).toPromise();
     } else {
-      await this.aulaService.update(this.aula);
+      await this.aulaService.update(this.aula).toPromise();
     }
 
     this.isShowMessage = true;

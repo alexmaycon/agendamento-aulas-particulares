@@ -48,9 +48,9 @@ export class AlunoComponent implements OnInit {
 
   async onSubmit() {
     if (this.isNovo) {
-      await this.alunoService.save(this.aluno);
+      await this.alunoService.save(this.aluno).toPromise();
     } else {
-      await this.alunoService.update(this.aluno);
+      await this.alunoService.update(this.aluno).toPromise();
     }
 
     this.form.reset();
