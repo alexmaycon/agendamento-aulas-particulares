@@ -21,7 +21,13 @@
 - [x] Usar a diretiva ngIf
 - [x] Formatar a apresentação de dados com Pipes.
 - [x] Fazer requisições a API com tratamento da resposta com Observables.
-- [ ] Build e deploy da aplicação.
+- [x] Build e deploy da aplicação.
+
+## Live demo
+
+https://alexmaycon.github.io/agendamento-aulas-particulares/
+
+Observação: Necessário iniciar o json:server do projeto localmente - vide comando abaixo.
 
 ## Protótipo das Telas
 
