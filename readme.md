@@ -26,3 +26,17 @@
 ## Protótipo das Telas
 
 https://www.figma.com/file/0ac1oxr7bDJ4pM71lOjzO8/agendamento-aulas-particulares?node-id=0%3A1
+
+## Build
+
+```
+npm install -g @angular/cli
+cd agendamento-aulas-particulares
+npm install
+ng build
+```
+
+## Deploy
+```
+ng deploy --base-href=/<repositoryname>/
+```
