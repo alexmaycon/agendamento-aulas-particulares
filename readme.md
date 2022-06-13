@@ -40,3 +40,8 @@ ng build
 ```
 ng deploy --base-href=/<repositoryname>/
 ```
+
+## Running Json:server
+```
+npm run json:server
+```
