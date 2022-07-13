@@ -1,5 +1,7 @@
 # Agendamento de Aulas Particulares
 
+Projeto desenvolvimento na Pós-gradução em Tecnologia Java da UTFPR-Campus Cornélio Procópio (2022).
+
 ## Checklist
 
 - [x] Criar o repositório no GitHub com a estrutura do Gitflow, ou seja, branches main e develop.
